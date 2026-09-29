@@ -1,0 +1,26 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %}List of Books{% endblock title %}
+
+{% block stylesheets %}
+<style>
+  h1 { color: green; }
+  h2 { color: lightskyblue; }
+  .book-card p { font-family: Verdana, sans-serif; font-size: 18px; }
+</style>
+{% endblock stylesheets %}
+
+{% block content %}
+  <h1>List of Books</h1>
+  <section class="book-grid">
+    {% for book in books %}
+      <article class="book-card">
+        <a href="{% url 'books.view_one_book' book.id %}">
+          <img src="{% static book.image %}" alt="Cover for {{ book.title }}" width="200" height="200">
+          <h2>{{ forloop.counter }}) {{ book.title }}</h2>
+        </a>
+      </article>
+    {% endfor %}
+  </section>
+{% endblock content %}

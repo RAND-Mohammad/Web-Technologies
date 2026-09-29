@@ -2,9 +2,8 @@ from django.shortcuts import render
 
 
 def index(request):
-    """Render the book module welcome page."""
-    name = request.GET.get("name") or "world"
-    return render(request, "bookmodule/index.html", {"name": name})
+    """Render the library home page."""
+    return render(request, "bookmodule/index.html")
 
 
 def index2(request, val1=0):
@@ -17,13 +16,39 @@ def viewbook(request, bookId):
     books = {
         123: {
             "id": 123,
-            "title": "Continuous Delivery",
-            "author": "J. Humble and D. Farley",
+            "title": "Internet and World Wide Web How to Program",
+            "author": "P. Deitel and H. Deitel",
+            "image": "book1.svg",
+            "description": "A clear introduction to Internet and web programming for introductory and intermediate courses.",
         },
         456: {
             "id": 456,
-            "title": "Secrets of Reverse Engineering",
-            "author": "E. Eilam",
+            "title": "C++ How to Program",
+            "author": "P. Deitel and H. Deitel",
+            "image": "book2.svg",
+            "description": "A practical guide to modern C++ programming and object-oriented design.",
+        },
+        789: {
+            "id": 789,
+            "title": "Learning Python",
+            "author": "Mark Lutz",
+            "image": "book3.svg",
+            "description": "A beginner-friendly reference for learning the Python programming language.",
         },
     }
-    return render(request, "bookmodule/show.html", {"book": books.get(bookId)})
+    return render(request, "bookmodule/one_book.html", {"book": books.get(bookId)})
+
+
+def list_books(request):
+    """Render the library catalogue."""
+    books = [
+        {"id": 123, "title": "Internet and World Wide Web How to Program", "image": "book1.svg"},
+        {"id": 456, "title": "C++ How to Program", "image": "book2.svg"},
+        {"id": 789, "title": "Learning Python", "image": "book3.svg"},
+    ]
+    return render(request, "bookmodule/list_books.html", {"books": books})
+
+
+def aboutus(request):
+    """Render the library about page."""
+    return render(request, "bookmodule/aboutus.html")
