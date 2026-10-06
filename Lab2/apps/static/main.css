@@ -1,0 +1,31 @@
+#links-title,
+.format-title {
+  padding: 15px;
+  color: white;
+  text-align: center;
+  background-color: #008cba;
+}
+
+.links-box { max-width: 600px; margin: 20px auto; }
+
+.links-box a {
+  display: block;
+  padding: 14px;
+  margin: 10px 0;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  background-color: #333333;
+}
+
+.links-box a:visited { background-color: #6a5acd; }
+.links-box a:hover { background-color: #008cba; }
+.links-box a:active { background-color: #e67e22; }
+
+.html-list { padding: 15px 35px; background-color: #f4f8fb; }
+.html-list li { padding: 5px; }
+
+.html-table { width: 100%; margin-top: 20px; border-collapse: collapse; }
+.html-table th, .html-table td { padding: 12px; border: 1px solid #cccccc; text-align: left; }
+.html-table th { color: white; background-color: #008cba; }
+.html-table tr:nth-child(even) { background-color: #f2f2f2; }

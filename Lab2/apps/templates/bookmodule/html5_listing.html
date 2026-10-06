@@ -1,0 +1,35 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %}HTML Lists{% endblock title %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{% static 'main.css' %}">
+{% endblock stylesheets %}
+
+{% block content %}
+<h1 class="format-title">Example of Nested Lists</h1>
+<h2>Programming Languages</h2>
+<ul class="html-list">
+  <li>Web Development
+    <ul>
+      <li>HTML</li>
+      <li>CSS</li>
+      <li>JavaScript</li>
+    </ul>
+  </li>
+  <li>Backend Development
+    <ol>
+      <li>Python</li>
+      <li>Django</li>
+      <li>SQL</li>
+    </ol>
+  </li>
+</ul>
+<h2>Steps to Run Django</h2>
+<ol class="html-list">
+  <li>Open the project folder.</li>
+  <li>Run the server.</li>
+  <li>Open the browser.</li>
+</ol>
+{% endblock content %}

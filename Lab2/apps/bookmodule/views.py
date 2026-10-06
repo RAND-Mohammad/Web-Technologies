@@ -52,3 +52,19 @@ def list_books(request):
 def aboutus(request):
     """Render the library about page."""
     return render(request, "bookmodule/aboutus.html")
+
+
+def html5_links(request):
+    return render(request, "bookmodule/html5_links.html")
+
+
+def html5_formatting(request):
+    return render(request, "bookmodule/html5_formatting.html")
+
+
+def html5_listing(request):
+    return render(request, "bookmodule/html5_listing.html")
+
+
+def html5_tables(request):
+    return render(request, "bookmodule/html5_tables.html")

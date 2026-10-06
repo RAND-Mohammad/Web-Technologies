@@ -1,0 +1,22 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %}HTML Tables{% endblock title %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{% static 'main.css' %}">
+{% endblock stylesheets %}
+
+{% block content %}
+<h1 class="format-title">Example of HTML Tables</h1>
+<table class="html-table">
+  <thead>
+    <tr><th>Book ID</th><th>Book Title</th><th>Author</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>123</td><td>Internet and World Wide Web How to Program</td><td>P. Deitel and H. Deitel</td></tr>
+    <tr><td>456</td><td>C++ How to Program</td><td>P. Deitel and H. Deitel</td></tr>
+    <tr><td>789</td><td>Learning Python</td><td>Mark Lutz</td></tr>
+  </tbody>
+</table>
+{% endblock content %}
