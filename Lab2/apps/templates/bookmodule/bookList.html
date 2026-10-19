@@ -4,18 +4,9 @@
 
 {% block content %}
 <h1>Search Results</h1>
-{% if books %}
-  <ul>
-  {% for book in books %}
-    <li>
-      <strong>{{ book.title }}</strong><br>
-      ID: {{ book.id }}<br>
-      Author: {{ book.author }}
-    </li>
-  {% endfor %}
-  </ul>
-{% else %}
-  <p>No books matched your search.</p>
-{% endif %}
+{% for obj in books %}
+  ID: {{ obj.id }}, Title: {{ obj.title }}
+  <hr>
+{% endfor %}
 <a href="{% url 'books.search' %}">Back to search</a>
 {% endblock content %}
