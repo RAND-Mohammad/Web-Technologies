@@ -1,6 +1,7 @@
+from django.db.models import Avg, Count, Max, Min, Q, Sum
 from django.shortcuts import render
 
-from .models import Book
+from .models import Address, Book, Publisher
 
 
 def index(request):
@@ -113,3 +114,86 @@ def complex_query(request):
         return render(request, "bookmodule/bookList.html", {"books": mybooks})
     else:
         return render(request, "bookmodule/index.html")
+
+
+def lab8_task1(request):
+    books = Book.objects.filter(Q(price__lte=80))
+    return render(request, "bookmodule/lab8_books.html", {"books": books, "task": 1})
+
+
+def lab8_task2(request):
+    books = Book.objects.filter(
+        Q(edition__gt=3) & (Q(title__icontains="co") | Q(author__icontains="co"))
+    )
+    return render(request, "bookmodule/lab8_books.html", {"books": books, "task": 2})
+
+
+def lab8_task3(request):
+    books = Book.objects.filter(
+        ~Q(edition__gt=3) & ~(Q(title__icontains="co") | Q(author__icontains="co"))
+    )
+    return render(request, "bookmodule/lab8_books.html", {"books": books, "task": 3})
+
+
+def lab8_task4(request):
+    books = Book.objects.order_by("title")
+    return render(request, "bookmodule/lab8_books.html", {"books": books, "task": 4})
+
+
+def lab8_task5(request):
+    summary = Book.objects.aggregate(
+        number_of_books=Count("id"),
+        total_price=Sum("price"),
+        average_price=Avg("price"),
+        maximum_price=Max("price"),
+        minimum_price=Min("price"),
+    )
+    return render(request, "bookmodule/lab8_summary.html", {"summary": summary})
+
+
+def lab8_task7(request):
+    cities = Address.objects.annotate(number_of_students=Count("student"))
+    return render(request, "bookmodule/lab8_cities.html", {"cities": cities})
+
+
+def lab9_task1(request):
+    total_books = Book.objects.aggregate(total_quantity=Sum("quantity"))["total_quantity"] or 0
+    books = Book.objects.all()
+    for book in books:
+        book.availability_percentage = (book.quantity / total_books * 100) if total_books else 0
+    return render(request, "bookmodule/lab9_books.html", {"books": books, "task": 1})
+
+
+def lab9_task2(request):
+    publishers = Publisher.objects.annotate(total_book_stock=Sum("book__quantity"))
+    return render(request, "bookmodule/lab9_publishers.html", {"publishers": publishers, "task": 2})
+
+
+def lab9_task3(request):
+    publishers = Publisher.objects.annotate(oldest_book_date=Min("book__pubdate"))
+    return render(request, "bookmodule/lab9_publishers.html", {"publishers": publishers, "task": 3})
+
+
+def lab9_task4(request):
+    publishers = Publisher.objects.annotate(
+        average_price=Avg("book__price"),
+        minimum_price=Min("book__price"),
+        maximum_price=Max("book__price"),
+    )
+    return render(request, "bookmodule/lab9_publishers.html", {"publishers": publishers, "task": 4})
+
+
+def lab9_task5(request):
+    publishers = Publisher.objects.annotate(
+        highly_rated_books=Count("book", filter=Q(book__rating__gte=4))
+    )
+    return render(request, "bookmodule/lab9_publishers.html", {"publishers": publishers, "task": 5})
+
+
+def lab9_task6(request):
+    publishers = Publisher.objects.annotate(
+        matching_books=Count(
+            "book", filter=Q(book__price__gt=50, book__quantity__lt=5, book__quantity__gte=1)
+        )
+    )
+    return render(request, "bookmodule/lab9_publishers.html", {"publishers": publishers, "task": 6})

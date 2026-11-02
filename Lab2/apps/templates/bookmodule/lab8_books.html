@@ -1,0 +1,12 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Lab 8 Task {{ task }}{% endblock title %}
+
+{% block content %}
+<h1>Lab 8 Task {{ task }}</h1>
+{% for book in books %}
+  ID: {{ book.id }}, Title: {{ book.title }}<hr>
+{% empty %}
+  <p>No books found.</p>
+{% endfor %}
+{% endblock content %}

@@ -1,0 +1,18 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Lab 9 Task {{ task }}{% endblock title %}
+
+{% block content %}
+<h1>Lab 9 Task {{ task }}</h1>
+{% for publisher in publishers %}
+  <p>{{ publisher.name }}</p>
+  {% if task == 2 %}Total book stock: {{ publisher.total_book_stock }}{% endif %}
+  {% if task == 3 %}Oldest book date: {{ publisher.oldest_book_date }}{% endif %}
+  {% if task == 4 %}Average price: {{ publisher.average_price }}, Min price: {{ publisher.minimum_price }}, Max price: {{ publisher.maximum_price }}{% endif %}
+  {% if task == 5 %}Highly rated books (rating >= 4): {{ publisher.highly_rated_books }}{% endif %}
+  {% if task == 6 %}Matching books: {{ publisher.matching_books }}{% endif %}
+  <hr>
+{% empty %}
+  <p>No publishers found.</p>
+{% endfor %}
+{% endblock content %}
