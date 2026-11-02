@@ -4,6 +4,7 @@
 
 {% block content %}
 <h1>Lab 9 Task {{ task }}</h1>
+<p>{{ description }}</p>
 {% for publisher in publishers %}
   <p>{{ publisher.name }}</p>
   {% if task == 2 %}Total book stock: {{ publisher.total_book_stock }}{% endif %}

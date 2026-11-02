@@ -118,26 +118,38 @@ def complex_query(request):
 
 def lab8_task1(request):
     books = Book.objects.filter(Q(price__lte=80))
-    return render(request, "bookmodule/lab8_books.html", {"books": books, "task": 1})
+    return render(request, "bookmodule/lab8_books.html", {
+        "books": books, "task": 1,
+        "description": "Books with price less than or equal to 80 using the Q operator.",
+    })
 
 
 def lab8_task2(request):
     books = Book.objects.filter(
         Q(edition__gt=3) & (Q(title__icontains="co") | Q(author__icontains="co"))
     )
-    return render(request, "bookmodule/lab8_books.html", {"books": books, "task": 2})
+    return render(request, "bookmodule/lab8_books.html", {
+        "books": books, "task": 2,
+        "description": "Books with edition greater than 3 and title or author containing 'co'.",
+    })
 
 
 def lab8_task3(request):
     books = Book.objects.filter(
         ~Q(edition__gt=3) & ~(Q(title__icontains="co") | Q(author__icontains="co"))
     )
-    return render(request, "bookmodule/lab8_books.html", {"books": books, "task": 3})
+    return render(request, "bookmodule/lab8_books.html", {
+        "books": books, "task": 3,
+        "description": "Books with no edition greater than 3 and without 'co' in title or author.",
+    })
 
 
 def lab8_task4(request):
     books = Book.objects.order_by("title")
-    return render(request, "bookmodule/lab8_books.html", {"books": books, "task": 4})
+    return render(request, "bookmodule/lab8_books.html", {
+        "books": books, "task": 4,
+        "description": "All books ordered by title using order_by.",
+    })
 
 
 def lab8_task5(request):
@@ -161,17 +173,26 @@ def lab9_task1(request):
     books = Book.objects.all()
     for book in books:
         book.availability_percentage = (book.quantity / total_books * 100) if total_books else 0
-    return render(request, "bookmodule/lab9_books.html", {"books": books, "task": 1})
+    return render(request, "bookmodule/lab9_books.html", {
+        "books": books, "task": 1,
+        "description": "Each book with its availability percentage from the total book stock.",
+    })
 
 
 def lab9_task2(request):
     publishers = Publisher.objects.annotate(total_book_stock=Sum("book__quantity"))
-    return render(request, "bookmodule/lab9_publishers.html", {"publishers": publishers, "task": 2})
+    return render(request, "bookmodule/lab9_publishers.html", {
+        "publishers": publishers, "task": 2,
+        "description": "Each publisher with total book stock.",
+    })
 
 
 def lab9_task3(request):
     publishers = Publisher.objects.annotate(oldest_book_date=Min("book__pubdate"))
-    return render(request, "bookmodule/lab9_publishers.html", {"publishers": publishers, "task": 3})
+    return render(request, "bookmodule/lab9_publishers.html", {
+        "publishers": publishers, "task": 3,
+        "description": "The oldest publication date for each publisher.",
+    })
 
 
 def lab9_task4(request):
@@ -180,14 +201,20 @@ def lab9_task4(request):
         minimum_price=Min("book__price"),
         maximum_price=Max("book__price"),
     )
-    return render(request, "bookmodule/lab9_publishers.html", {"publishers": publishers, "task": 4})
+    return render(request, "bookmodule/lab9_publishers.html", {
+        "publishers": publishers, "task": 4,
+        "description": "Average, minimum, and maximum book price for each publisher.",
+    })
 
 
 def lab9_task5(request):
     publishers = Publisher.objects.annotate(
         highly_rated_books=Count("book", filter=Q(book__rating__gte=4))
     )
-    return render(request, "bookmodule/lab9_publishers.html", {"publishers": publishers, "task": 5})
+    return render(request, "bookmodule/lab9_publishers.html", {
+        "publishers": publishers, "task": 5,
+        "description": "Each publisher with its number of highly rated books (rating >= 4).",
+    })
 
 
 def lab9_task6(request):
@@ -196,4 +223,7 @@ def lab9_task6(request):
             "book", filter=Q(book__price__gt=50, book__quantity__lt=5, book__quantity__gte=1)
         )
     )
-    return render(request, "bookmodule/lab9_publishers.html", {"publishers": publishers, "task": 6})
+    return render(request, "bookmodule/lab9_publishers.html", {
+        "publishers": publishers, "task": 6,
+        "description": "Book count for each publisher where price is greater than 50 and quantity is from 1 to 4.",
+    })

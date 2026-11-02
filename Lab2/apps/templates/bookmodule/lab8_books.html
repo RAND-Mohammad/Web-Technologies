@@ -4,6 +4,7 @@
 
 {% block content %}
 <h1>Lab 8 Task {{ task }}</h1>
+<p>{{ description }}</p>
 {% for book in books %}
   ID: {{ book.id }}, Title: {{ book.title }}<hr>
 {% empty %}
